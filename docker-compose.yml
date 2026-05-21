@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+
+  mysql-container:
+
+    image: mysql:8
+
+    container_name: mysql-container
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: studentdb
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  backend-container:
+
+    build: ./backend
+
+    container_name: backend-container
+
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      - mysql-container
+
+  frontend-container:
+
+    build: ./frontend
+
+    container_name: frontend-container
+
+    ports:
+      - "8081:80"
+
+    depends_on:
+      - backend-container
+
+volumes:
+  mysql-data:
