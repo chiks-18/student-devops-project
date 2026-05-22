@@ -1,32 +1,40 @@
 pipeline {
-
     agent any
 
     stages {
 
         stage('Clone Repository') {
-
             steps {
-
-                git 'https://github.com/chiks-18/student-devops-project.git'
+                git branch: 'master',
+                url: 'https://github.com/chiks-18/student-devops-project.git'
             }
         }
 
-        stage('Build Containers') {
-
+        stage('Build Backend Image') {
             steps {
-
-                bat 'docker-compose down'
-
-                bat 'docker-compose up --build -d'
+                bat 'docker build -t student-backend ./backend'
             }
         }
 
-        stage('Verify Running Containers') {
+        stage('Build Frontend Image') {
+            steps {
+                bat 'docker build -t student-frontend ./frontend'
+            }
+        }
 
+        stage('Deploy To Kubernetes') {
             steps {
 
-                bat 'docker ps'
+                bat 'kubectl rollout restart deployment backend'
+                bat 'kubectl rollout restart deployment frontend'
+
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                bat 'kubectl get pods'
+                bat 'kubectl get svc'
             }
         }
     }

@@ -14,7 +14,7 @@ document.getElementById("studentForm").addEventListener("submit", async function
 
     try {
 
-        const response = await fetch('http://localhost:5001/addStudent', {
+        const response = await fetch('http://backend-service:5000/addStudent', {
 
             method: 'POST',
 
