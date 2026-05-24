@@ -2,13 +2,16 @@ const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
 
-    host: 'mysql-service',
+    host: 'mysql-container',
 
     user: 'root',
 
-    password: 'root',
+    password: 'root123',
 
-    database: 'studentdb'
+    database: 'studentdb',
+
+    port: 3306
+
 });
 
 connection.connect((err) => {
