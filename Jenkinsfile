@@ -12,13 +12,13 @@ pipeline {
 
         stage('Build Backend Image') {
             steps {
-                bat 'docker build -t student-backend ./backend'
+                bat 'docker build --no-cache -t student-backend ./backend'
             }
         }
 
         stage('Build Frontend Image') {
             steps {
-                bat 'docker build -t student-frontend ./frontend'
+                bat 'docker build --no-cache -t student-frontend ./frontend'
             }
         }
 
