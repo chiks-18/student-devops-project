@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/addStudent', (req, res) => {
+    console.log('Received data:', req.body);
 
     const { name, mobile, location } = req.body;
 
